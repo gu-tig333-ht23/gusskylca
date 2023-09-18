@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:template/homepage.dart';
 import 'package:template/main.dart';
 import 'listviewbuilder.dart';
 
@@ -35,6 +36,8 @@ class AddTaskView extends StatelessWidget {
             onPressed: () {
               var newTask = TaskItem(textEditingController.text, false);
               context.read<TaskProvider>().addItem(newTask);
+              Navigator.pop(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green,
