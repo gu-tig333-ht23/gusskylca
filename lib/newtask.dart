@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:template/homepage.dart';
+import 'package:template/main.dart';
+import 'listviewbuilder.dart';
 
-class AddTask extends StatelessWidget {
-  //Class for adding new task
-  const AddTask({super.key});
+class AddTaskView extends StatelessWidget {
+  AddTaskView({super.key});
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +24,21 @@ class AddTask extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.all(10),
+            // Textfield for describing new tasks
             child: TextField(
-              // Creating textfield
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Write Your New Task Here...'),
-            ),
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Write Your New Task Here...'),
+                controller: textEditingController),
           ),
+          // Add task button
           ElevatedButton(
-            // Add task button
-            onPressed: () {},
+            onPressed: () {
+              var newTask = TaskItem(textEditingController.text, false);
+              context.read<TaskProvider>().addItem(newTask);
+              Navigator.pop(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green,
             ),
@@ -37,7 +46,7 @@ class AddTask extends StatelessWidget {
               'Add Task',
               style: TextStyle(fontSize: 20),
             ),
-          )
+          ),
         ],
       ),
     );
