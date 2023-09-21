@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:template/homepage.dart';
-import 'package:template/main.dart';
-import 'listviewbuilder.dart';
+import 'app_state.dart';
+import 'model.dart';
 
 class AddTaskView extends StatelessWidget {
   AddTaskView({super.key});
-  final TextEditingController textEditingController = TextEditingController();
+  final TextEditingController newTaskController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +28,14 @@ class AddTaskView extends StatelessWidget {
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Write Your New Task Here...'),
-                controller: textEditingController),
+                controller: newTaskController),
           ),
           // Add task button
           ElevatedButton(
             onPressed: () {
-              var newTask = TaskItem(textEditingController.text, false);
-              context.read<TaskProvider>().addItem(newTask);
-              Navigator.pop(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
+              TaskItem newTask = TaskItem(newTaskController.text, false);
+              context.read<TaskProvider>().addTask(newTask);
+              Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green,

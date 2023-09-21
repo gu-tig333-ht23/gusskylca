@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:template/main.dart';
-import 'newtask.dart';
-import 'listviewbuilder.dart';
+import 'app_state.dart';
+import 'new_task.dart';
+import 'todobuilder.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var tasks = context.watch<TaskProvider>().myTasks;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -38,7 +39,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       // Building the listView
-      body: ListViewBuilder(),
+      body: ListView(children: tasks.map((task) => TodoBuilder(task)).toList()),
       // Button to add task
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
