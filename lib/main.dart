@@ -7,18 +7,18 @@ void main() {
   TaskProvider state = TaskProvider();
   state.fetchTasks();
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => state,
-    child: MyApp(),
-  ));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => state,
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
-    );
+    return MaterialApp(home: HomePage(), debugShowCheckedModeBanner: false);
   }
 }

@@ -43,7 +43,39 @@ class TodoBuilder extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                context.read<TaskProvider>().deleteTask(task);
+                // Pop up dialog for making sure user wants to delete task
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(
+                          'Are you sure you want to delete "${task.task}"?'),
+                      actions: [
+                        FilledButton(
+                          onPressed: () {
+                            context.read<TaskProvider>().deleteTask(task);
+                            Navigator.pop(context);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll<Color>(Colors.green),
+                          ),
+                          child: Text('Yes'),
+                        ),
+                        FilledButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll<Color>(Colors.green),
+                          ),
+                          child: Text('No'),
+                        )
+                      ],
+                    );
+                  },
+                );
               },
             ),
           ],
